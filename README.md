@@ -15,7 +15,7 @@ Waverly was founded by a former Finance professional who worked for 5 years at G
 
 <!-- IMAGE: one-line chart, pass rate vs. share of figures right per category. Optional. -->
 
-## Tasks (TODO: Trim this down meaningfully)
+## Tasks
 
 Nine task families, grouped into seven categories by what they test. Each family has 2–17 levels (Easy / Medium / Hard and variants). A level adds work (more instruments, more tabs touched, less said about where), not a different skill.
 
