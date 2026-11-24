@@ -4,32 +4,31 @@ Waverly was founded by a former Finance professional who worked for 5 years at G
 
 ## TLDR
 
-- **65 graded tasks across 9 task families** on a real (anonymized) PE LBO model: 35 tabs, ~72,000 formulas, three operating cases. The model still has the pre-existing defects a real deal model has.
-- **Claude Opus 5.5 (Claude Code, medium effort) passes 29% (19/65).** The pass rate falls with difficulty: 75% on Easy, 46% on Medium, 14% on Hard.
-- **The math isn't the problem.** Agents got **93% of graded figures right**, and 23 of the 46 failures had every number right. They fail on what makes a model usable: poor formatting (67% of failures), incorrect assumptions (24%), unintended downstream impacts from edits (17%), and stale logic / tabs kept in the new build (13%).
+- **82 graded tasks across 8 task families** on a real (anonymized) PE LBO model: 35 tabs, ~72,000 formulas, three operating cases. The model still has the pre-existing defects a real deal model has.
+- **Claude Opus 5.5 (Claude Code, medium effort) passes 24% (20/82).** The pass rate falls with difficulty: 75% on Easy, 45% on Medium, 13% on Hard.
+- **The math isn't the problem.** Agents got **91% of graded figures right**, and 30 of the 62 failures had every number right. They fail on what makes a model usable: poor formatting (58% of failures), incorrect assumptions (18%), unintended downstream impacts from edits (19%), and stale logic / tabs kept in the new build (19%).
 - This reflects the frontier of financial modeling today. In our experience, Agents are excellent at math and core financial modeling. But they do poorly at returning quality outputs that real professionals expect. Formatting and conventions do matter significantly. E.g. You cannot submit an unreadable model for Investment Committee, even if the numbers are mostly correct.
 
 | Overall         | Easy      | Medium      | Hard       |
 | --------------- | --------- | ----------- | ---------- |
-| **29%** (19/65) | 75% (3/4) | 46% (11/24) | 14% (5/37) |
+| **24%** (20/82) | 75% (3/4) | 45% (10/22) | 13% (7/56) |
 
 <!-- IMAGE: one-line chart, pass rate vs. share of figures right per category. Optional. -->
 
 ## Tasks
 
-Nine task families, grouped into seven categories by what they test. Each family has 2–17 levels (Easy / Medium / Hard and variants). A level adds work (more instruments, more tabs touched, less said about where), not a different skill.
+Eight task families, grouped into seven categories by what they test. Each family has 2–19 levels (Easy / Medium / Hard and variants). A level adds work (more instruments, more tabs touched, less said about where), not a different skill.
 
-| Category                                          | What the agent has to do                                                                                                                         |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Revenue build restructure**                     | Re-cut a 4-segment revenue build into 2–3 new segments with new retention assumptions, and carry it through to the IC tabs                       |
-| **Model type conversion (e.g. SaaS to Services)** | Replace subscription revenue with price × volume × utilization; strip what no longer applies (commissions, MRR waterfalls, retention metrics)    |
-|                                                   | Convert to a consumer app: a users bridge, ARPU, gross-to-net, paid acquisition; Hard adds annual-plan deferred revenue, devices, app-store fees |
-| **P&L / cost structure restructure**              | Keep half of a person-by-person headcount roster, convert the other departments to % of revenue, and rewire the P&L and IC tabs                  |
-| **Error audit & repair**                          | Find and fix the template's real calculation errors (interest, logo double count, copy-error inputs) and leave the rest alone                    |
-| **Capital structure change**                      | Preferred equity, management pools, seller notes with PIK, dividend recaps, warrants, revolvers, covenant amendments, a segment sale             |
-| **Add-on acquisition**                            | A mid-hold add-on through the template's own mechanics: acquired customers, overlap, incremental debt with a cash sweep, earnouts, a 4th case    |
-| **Model maintenance**                             | A quarter closes: book customer-level actuals (and on Hard the management accounts) and restart the forecast from September                      |
-|                                                   | Move to a June fiscal year: re-cut every annual figure without moving any monthly one                                                            |
+| Category                                          | What the agent has to do                                                                                                                                                                                                                                                    |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Revenue build restructure**                     | Re-cut a 4-segment revenue build into 2–3 new segments with new retention assumptions, and carry it through to the IC tabs                                                                                                                                                  |
+| **Model type conversion (e.g. SaaS to Services)** | Replace subscription revenue with price × volume × utilization; strip what no longer applies (commissions, MRR waterfalls, retention metrics)                                                                                                                               |
+|                                                   | Convert to a consumer app: a users bridge, ARPU, gross-to-net, paid acquisition; Hard adds annual-plan deferred revenue, devices, app-store fees                                                                                                                            |
+| **P&L / cost structure restructure**              | Keep half of a person-by-person headcount roster, convert the other departments to % of revenue, and rewire the P&L and IC tabs                                                                                                                                             |
+| **Error audit & repair**                          | Find and fix the template's real calculation errors (interest, logo double count, copy-error inputs) and leave the rest alone                                                                                                                                               |
+| **Capital structure change**                      | Preferred equity, management pools, seller notes with PIK, dividend recaps, warrants, revolvers, covenant amendments, a segment sale                                                                                                                                        |
+| **Add-on acquisition**                            | A mid-hold add-on through the template's own mechanics: acquired customers, overlap, incremental debt with a cash sweep, earnouts, a 4th case                                                                                                                               |
+| **Revenue model rewiring**                        | Replace how revenue works mid-hold (usage pricing, retention by customer age, a distributor, three-year contracts, named top accounts, a JV, a free tier) and carry it through every link that reads it; some levels add a financing or cost term defined on the new figure |
 
 **What a brief looks like** (07 Hard-7, abridged). It reads as a note to a junior analyst:
 
@@ -51,13 +50,13 @@ One run per level. Claude Opus 5.5 (1M context), medium effort, up to 200 turns.
 | Model type conversion            | 12     | 0      | 0%        |
 | Error audit & repair             | 4      | 1      | 25%       |
 | P&L / cost structure restructure | 6      | 2      | 33%       |
-| Capital structure change         | 17     | 6      | 35%       |
-| Add-on acquisition               | 17     | 5      | 29%       |
-| Model maintenance                | 4      | 1      | 25%       |
-| **All**                          | **65** | **19** | **29%**   |
+| Capital structure change         | 18     | 6      | 33%       |
+| Add-on acquisition               | 18     | 5      | 28%       |
+| Revenue model rewiring           | 19     | 2      | 11%       |
+| **All**                          | **82** | **20** | **24%**   |
 
 - **Fails most where the business model changes.** The conversions (02, 04) pass 0 of 12. A major factor is the Agent must rewire every downstream formula, if you remove say the revenue build. This is consistent with our observation when using Agents for complex real-world financial modeling.
-- **Where the change is well-specified, the numbers are right but the Agent can fail on modeling convention.** Capital structure and add-on acquisitions get 94–97% of figures right, but pass only 29–35%. Most of those failures are poor modeling practices and formatting, not math.
+- **Where the change is well-specified, the numbers are right but the Agent can fail on modeling convention.** Capital structure and add-on acquisitions get 94–97% of figures right, but pass only 28–33%. Most of those failures are poor modeling practices and formatting, not math.
 
 ## Grader / Rubric
 
@@ -78,18 +77,18 @@ Two more gates fail the run: a new error cell (`#REF!`, `#DIV/0!`) the template 
 
 ## Where agents fail
 
-46 of 65 runs failed. A run can fail for more than one reason, so the shares add up to more than 100%.
+62 of 82 runs failed. A run can fail for more than one reason, so the shares add up to more than 100%.
 
 | Failure mode                                                                  | Failed runs | Share of failures |
 | ----------------------------------------------------------------------------- | ----------- | ----------------- |
-| Poor formatting (content rows squished to 5pt or hidden, mismatched fonts)    | 31          | 67%               |
-| Incorrect assumptions (a figure the brief or the case settles, entered wrong) | 11          | 24%               |
-| Unintended downstream impacts                                                 | 8           | 17%               |
-| Stale logic / tabs kept in new build                                          | 6           | 13%               |
-| Numbers don't tie (e.g. a summary tab doesn't match the build)                | 5           | 11%               |
-| Incorrect oversimplification (e.g. monthly build converted to annual)         | 3           | 7%                |
-| Audit fix incomplete                                                          | 3           | 7%                |
-| Other (a template error surfaced on an IC tab, small numeric drift)           | 3           | 7%                |
+| Poor formatting (content rows squished to 5pt or hidden, mismatched fonts)    | 36          | 58%               |
+| Incorrect assumptions (a figure the brief or the case settles, entered wrong) | 11          | 18%               |
+| Unintended downstream impacts                                                 | 12          | 19%               |
+| Stale logic / tabs kept in new build                                          | 12          | 19%               |
+| Numbers don't tie (e.g. a summary tab doesn't match the build)                | 14          | 23%               |
+| Incorrect oversimplification (e.g. monthly build converted to annual)         | 3           | 5%                |
+| Audit fix incomplete                                                          | 3           | 5%                |
+| Other (a template error surfaced on an IC tab, small numeric drift)           | 4           | 6%                |
 
 ### 1. Poor formatting
 
@@ -117,7 +116,7 @@ The prompt states every fact that moves a number, and the template runs three ca
 
 There are real defects in our model template, which is representative of real-world models. Sometimes, Agents spot the template's defects and can't leave them alone. The brief says "our operating plan doesn't change"; the agent fixes a quirk next to the change it was asked for, and the fix cascades through cash, covenants and returns. We view this as a real failure, as often real-world models have quirks built into them in order to solve some task, which gets maintained over time.
 
-- **07 Hard-7 and Hard-11, 08 Medium and Hard:** 2 of the template's revenue retention segments are cross-wired. Agents rewired them to their "own" rows, which rewrote the existing plan. In Hard-7, Dec-28 leverage fell from 1.83x to 1.77x, below the 1.80x sweep trigger, so the cash sweep, loan balance, cash and returns all moved (14 of 54 figures wrong).
+- **07 Hard-7 and Hard-11, 08 Cohort-retention and Product-led:** 2 of the template's revenue retention segments are cross-wired. Agents rewired them to their "own" rows, which rewrote the existing plan. In Hard-7, Dec-28 leverage fell from 1.83x to 1.77x, below the 1.80x sweep trigger, so the cash sweep, loan balance, cash and returns all moved (14 of 54 figures wrong).
 - **06 Hard-4:** re-booked the term loan's PIK through P&L interest against the brief; 25 of 33 figures wrong and two Events of Default in Base.
 
 ### 4. Stale logic / tabs kept in new build
