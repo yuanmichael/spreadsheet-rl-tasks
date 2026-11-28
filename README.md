@@ -6,7 +6,7 @@ Waverly was founded by a former Finance professional who worked for 5 years at G
 
 - **161 graded tasks across 14 task families** on two real-style (anonymized) PE LBO models. Orion: 35 tabs, ~72,000 formulas. Kestrel: 19 tabs, ~43,000 formulas. Both run three operating cases and carry the pre-existing defects a real deal model has.
 - **Claude Opus 5.5 (Claude Code, medium effort) passes 24% (39/161).** The pass rate falls with difficulty: 85% on Easy, 38% on Medium, 13% on Hard.
-- **The math isn't the problem.** Agents got **84% of graded figures right**, and 31 of the 122 failures had every number right. They fail on what makes a model usable: poor formatting, incorrect assumptions, unintended downstream impacts from edits, and stale logic / tabs kept in the new build.
+- **The math isn't the problem.** Agents got **84% of graded figures right**. They fail on what makes a model usable: poor formatting, incorrect assumptions, unintended downstream impacts from edits, and stale logic / tabs kept in the new build.
 - **One formatting rule is partly an artefact of our harness, so we report every pass rate both ways.** Agents edit with openpyxl, which moves cell contents without their row heights when rows are inserted; Excel moves both. Content can land on a thin spacer row and become unreadable ("squished"). With that rule taken out, the pass rate is 27% (44/161). See Results.
 - This reflects the frontier of financial modeling today. In our experience, Agents are excellent at math and core financial modeling. But they do poorly at returning quality outputs that real professionals expect. Formatting and conventions do matter significantly. E.g. You cannot submit an unreadable model for Investment Committee, even if the numbers are mostly correct.
 
@@ -151,7 +151,6 @@ Faced with complex changes, sometimes Agents simply delete the existing logic. E
 This is a first look, not a leaderboard.
 
 - **One run per level, one model, one effort setting, one harness.** We haven't measured run-to-run variance or compared models due to our limited compute
-- **The grader changed while the tasks were being built.** The deterministic rules above were re-applied to every recorded run. The LLM reviewer's instructions also changed (it no longer marks down squished rows or fonts that code already scores), and earlier runs have not been re-reviewed, so reviewer scores are not strictly comparable across the whole set yet
 - **The grader includes minor LLM steps** A LLM judge is 30% of our rubric, though we think this is an essential component of the rubric; while you can have many ways to model the same math, _quality_ does matter, which is subjective. We also have a "mapper" step in our grading logic, which helps reconcile the template's golden cells with the Agent's output (e.g. Agent may have shifted rows around)
 
 ## What's in each task
